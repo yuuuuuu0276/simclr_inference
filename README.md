@@ -1,7 +1,15 @@
 # SimCLR Inference 
 
-Backend service for image classification using a SimCLR encoder with a linear head.  
-Supports **quantized (TFLite)** inference and (in `app_v1.py`) a fallback to a **naive TF** path.
+## Overview
+
+**SimCLR Inference** is an end-to-end image classification service that wraps a SimCLR encoder + linear probe behind a simple web API and SPA frontend.
+
+- **What it does:** Given an input image, the service returns the **top-K predicted classes** with confidence scores.
+- **Why it’s fast/lightweight:** The primary path uses a **quantized TFLite** model to reduce memory footprint and latency, making it suitable for small VMs and edge deployments. A legacy path (`app_v1.py`) also supports the original **TensorFlow SavedModel + .h5** linear head for comparison.
+- **Backend:** **FastAPI** (Uvicorn). Endpoints include `/health`, `/perf` (rolling latency + memory), and `/predict` (multipart upload: `file`). Thread counts are pinned to keep CPU usage predictable on small instances.
+- **Frontend:** **Vite** app served by **Nginx**. A minimal UI lets you upload an image and view predictions. Nginx **proxies** `/api/*` → `backend:8000`, so the browser and API share the same origin (no public port 8000, no CORS headaches).
+- **Packaging & Deploy:** **Docker Compose** brings up both services with one command. Designed to run locally (localhost:80/8000) or on **EC2** (port 80/443 public; backend hidden behind the proxy). Large model artifacts are intentionally **.gitignored** to keep the repo lean; use LFS or external storage if needed.
+- **Extensible:** Swap class lists (`class_names.txt`), replace the quantized model (`model_dynamic.tflite`), or point the legacy app to a different SavedModel directory without changing the API.
 
 ## Contents
 
