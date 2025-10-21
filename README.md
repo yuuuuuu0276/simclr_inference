@@ -1,4 +1,4 @@
-# SimCLR Inference Backend (FastAPI)
+# SimCLR Inference 
 
 Backend service for image classification using a SimCLR encoder with a linear head.  
 Supports **quantized (TFLite)** inference and (in `app_v1.py`) a fallback to a **naive TF** path.
