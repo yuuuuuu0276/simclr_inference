@@ -1,0 +1,29 @@
+version: "3.9"   # you can remove this warning line if you want
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    image: simclr-backend
+    container_name: backend
+    ports:
+      - "8000:8000"
+    environment:
+      - USE_TFLITE=1
+      - TFLITE_PATH=./model_dynamic.tflite
+      - OMP_NUM_THREADS=1
+      - TF_NUM_INTRAOP_THREADS=1
+      - TF_NUM_INTEROP_THREADS=1
+
+  frontend:
+    build:
+      context: ./front_end
+      dockerfile: Dockerfile.frontend
+      args:
+        VITE_BACKEND_URL: /api   # <-- CHANGE HERE
+    image: simclr-frontend
+    container_name: frontend
+    depends_on:
+      - backend
+    ports:
+      - "80:80"

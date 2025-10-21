@@ -1,0 +1,72 @@
+# ---- OS / Editors ----
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+venv/
+env/
+inference_venv/
+.pytest_cache/
+.coverage
+dist/
+build/
+pip-wheel-metadata/
+
+# ---- Node / Frontend ----
+front_end/node_modules/
+front_end/.cache/
+front_end/.vite/
+front_end/.vercel/
+front_end/dist/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---- Docker / Compose ----
+**/.docker/
+docker-data/
+*.pid
+
+# ---- Secrets / Config ----
+.env
+.env.*
+*.pem
+*.key
+*.crt
+
+# ---- Model artifacts (keep these out of git; use Git LFS or a bucket) ----
+saved_model/
+saved_model/saved_model.pb
+saved_model/variables
+saved_model/variables/variables.data-00000-of-00001
+saved_model/variables/variables.index
+# *.h5
+# *.tflite
+*.pb
+# *.ckpt
+# checkpoint
+
+# If you plan to commit small test samples, store them under a `samples/` folder and DO NOT ignore it.
+
+# ---- Misc ----
+*.ipynb_checkpoints/
+
+test_image.jpg
+test_image2.jpg
+test_image3.jpg
+my_app.py
+oct25.pem
+saved_model/
+*.h5
+*.tflite

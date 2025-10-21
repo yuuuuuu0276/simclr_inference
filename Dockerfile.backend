@@ -1,0 +1,30 @@
+# Dockerfile.backend
+FROM python:3.11-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+
+# System deps (certs)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy and install deps first for caching
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# Copy code and model assets
+COPY app.py ./app.py
+COPY class_names.txt ./class_names.txt
+# COPY best_linear_probe3.weights.h5 ./best_linear_probe3.weights.h5
+# SavedModel is a DIRECTORY; copy the folder that contains saved_model.pb
+# COPY saved_model ./saved_model
+# NEW: bake the TFLite file into the image
+COPY model_dynamic.tflite ./model_dynamic.tflite
+
+EXPOSE 8000
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+
