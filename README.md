@@ -9,9 +9,9 @@ Supports **quantized (TFLite)** inference and (in `app_v1.py`) a fallback to a *
 - **`app_v1.py`** — Older FastAPI app supporting **both** naive TF and quantized TFLite inference.
 - **`export_tflite.py`** — Script to **export / quantize** a TensorFlow model to **TFLite**.
 - **`class_names.txt`** — Line-separated class labels.
-- **`saved_model/`** — TensorFlow SavedModel directory (ignored from VCS).
-- **`best_linear_probe3.weights.h5`** — Linear head weights (ignored from VCS).
-- **`model_dynamic.tflite`** — Quantized model produced by `export_tflite.py` (ignored from VCS).
+- **`saved_model/`** — TensorFlow SavedModel directory This folder is **not** in this repo. You can access it here: "gs://simclr-checkpoints-tf2/simclrv2/finetuned_100pct/r50_1x_sk0/saved_model/" and put it in folder saved_model so that is ha `saved_model/saved_model.pb`, `saved_model/variables/variables.index`, `saved_model/variables/variables.data-00000-of-00001`
+- **`best_linear_probe3.weights.h5`** — Linear head weights.
+- **`model_dynamic.tflite`** — Quantized model produced by `export_tflite.py`.
 - **`Dockerfile.backend` / `docker-compose.yaml`** — Containerization (FastAPI + optional Nginx frontend).
 
 ---
