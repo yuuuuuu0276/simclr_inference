@@ -68,5 +68,5 @@ test_image3.jpg
 my_app.py
 oct25.pem
 saved_model/
-*.h5
-*.tflite
+# *.h5
+# *.tflite
