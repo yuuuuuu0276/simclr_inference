@@ -4,6 +4,8 @@
 
 **SimCLR Inference** is an end-to-end image classification service that wraps a SimCLR encoder + linear probe behind a simple web API and SPA frontend.
 
+![Demo of SimCLR Inference](assets/demo.gif)
+
 - **What it does:** Given an input image, the service returns the **top-K predicted classes** with confidence scores.
 - **Why it’s fast/lightweight:** The primary path uses a **quantized TFLite** model to reduce memory footprint and latency, making it suitable for small VMs and edge deployments. A legacy path (`app_v1.py`) also supports the original **TensorFlow SavedModel + .h5** linear head for comparison.
 - **Backend:** **FastAPI** (Uvicorn). Endpoints include `/health`, `/perf` (rolling latency + memory), and `/predict` (multipart upload: `file`). Thread counts are pinned to keep CPU usage predictable on small instances.
