@@ -51,4 +51,6 @@ curl http://localhost:8000/health
   ```yaml
   args:
     VITE_BACKEND_URL: /api
+  ```
+- feel free to change the backend connecting logic which serves best for your hosting.
 
