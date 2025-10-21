@@ -16,7 +16,7 @@ Supports **quantized (TFLite)** inference and (in `app_v1.py`) a fallback to a *
 
 ---
 
-## Running (Docker Compose, recommended)
+## Running Docker Compose
 
 ```bash
 # Build & start backend (and frontend if present)
@@ -24,3 +24,21 @@ docker compose up -d --build
 
 # Check health from the instance or your machine (depending on exposure):
 curl http://localhost:8000/health
+```
+
+## Front End access
+
+- **Local (Docker Compose on your machine):**  
+  Open: **http://localhost/**
+
+- **EC2 / Remote host (proxy setup recommended):**  
+  Open: **http://<EC2_PUBLIC_IP>/**  
+  API is proxied at **/api** → `backend:8000` inside Docker.  
+  Health check via proxy: `http://<EC2_PUBLIC_IP>/api/health`
+
+### How the frontend talks to the backend
+- If using the **proxy** : build the frontend with
+  ```yaml
+  args:
+    VITE_BACKEND_URL: /api
+
